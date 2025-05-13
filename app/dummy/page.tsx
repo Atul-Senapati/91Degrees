@@ -1,3 +1,4 @@
+'use client'
 import Butterfly from "@/components/butterfly";
 import { Particles } from "@/components/particle";
 import PlantButton from "@/components/plant-based";
