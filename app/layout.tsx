@@ -8,7 +8,7 @@ import { Cart } from "@/components/cart";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "91 Degrees - Premium Sanitary Pads",
+  title: "91 Degrees - Premium Plant Based Sanitary Pads",
   description:
     "Comfort and protection you can trust. Shop our range of premium sanitary pads.",
     icons: {
