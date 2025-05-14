@@ -32,6 +32,8 @@ import Page from "./dummy/page";
 import Footer from "@/components/footer";
 import Headerhome from "@/components/header-home";
 import HeroSection from "@/components/hero-section";
+import FeatureSection from "@/components/mobile-feature";
+import ContactFab from "@/components/contact-fab";
 
 export default function Home() {
   return (
@@ -119,7 +121,7 @@ export default function Home() {
         {/* Features Section */}
         <section
           id="features"
-          className="lg:block   w-full hidden py-8 md:py-16 lg:py-24 bg-pink-50 dark:bg-pink-950/30 transition-colors duration-300"
+          className="  w-full  py-8 md:py-16 lg:py-24 bg-pink-50 dark:bg-pink-950/30 transition-colors duration-300"
         >
           <div className="container px-4 md:px-6">
             <AnimatedSection className="flex flex-col items-center justify-center space-y-5 text-center">
@@ -137,7 +139,8 @@ export default function Home() {
             </AnimatedSection>
 
             <AnimatedSection>
-              <Page />
+             <div className="lg:block hidden pt-8"><Page /></div> 
+             <div className="block lg:hidden"><FeatureSection/></div>
             </AnimatedSection>
           </div>
         </section>
@@ -222,6 +225,7 @@ export default function Home() {
      
       
               <Footer />
+              <ContactFab/>
            
     </div>
   );

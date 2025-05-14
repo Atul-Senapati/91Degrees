@@ -11,7 +11,7 @@ const testimonials = [
       "91 degrees pads have been a game-changer for me. They're so comfortable I sometimes forget I'm wearing one!",
   },
   {
-    name: "Michelle T.",
+    name: "Sravani T.",
      age:21,
     avatar: "/placeholder.svg?height=40&width=40",
     title: "New Customer",

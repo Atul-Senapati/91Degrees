@@ -246,7 +246,7 @@ export default function ProductSelector() {
               <CarouselPlugin/>
               </div>
               <div className="space-y-4">
-                <div className="font-bold text-pink-900 dark:text-pink-400 text-3xl tracking-wide">91 Degrees FLEXIFLOW</div>
+                <div className="font-bold text-pink-900 dark:text-pink-100 text-3xl tracking-wider">91 Degrees FLEXIFLOW</div>
                 <div className="space-y-2">
                   <Label htmlFor="size" className="text-base font-medium">
                     Select Size

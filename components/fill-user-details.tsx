@@ -77,7 +77,7 @@ export default function CheckoutForm() {
   const validateStep = (currentStep: number): boolean => {
     const newErrors: FormErrors = {};
     let isValid = true;
-    return isValid; //remove it
+    // return isValid; //remove it
 
     if (currentStep === 1) {
       if (!formData.name.trim()) {
@@ -240,7 +240,7 @@ ${discountNote}
 `;
 
     const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = "7656960907";
+    const phoneNumber = "8926361010";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
     window.open(whatsappUrl, "_blank");
@@ -704,7 +704,7 @@ ${discountNote}
                     Processing...
                   </>
                 ) : (
-                  "Redirect to Whatsapp"
+                  "Buy Now"
                 )}
               </Button>
             )}

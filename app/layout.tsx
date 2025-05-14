@@ -11,6 +11,9 @@ export const metadata = {
   title: "91 Degrees - Premium Sanitary Pads",
   description:
     "Comfort and protection you can trust. Shop our range of premium sanitary pads.",
+    icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -23,7 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >

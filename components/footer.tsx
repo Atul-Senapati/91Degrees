@@ -146,7 +146,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
+        <div className="mt-8 pt-6 border-t border-gray-300 dark:border-gray-700 text-center">
           <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
             © 2025 {company.name}, a division of {company.registeredAddress.name}. All
             rights reserved.

@@ -205,7 +205,7 @@ const page = () => {
             asChild
             className="transition-all duration-300 hover:bg-pink-600 dark:hover:bg-pink-300 mt-2"
           >
-            <Link href="">
+            <Link href="/contact">
               Contact Us
               <ChevronRight className="ml-2 h-4 w-4" />
             </Link>
@@ -213,12 +213,12 @@ const page = () => {
         </div>
         <div
           className="col-span-2 row-span-2 bg-gray-200 dark:bg-gray-800 rounded-lg shadow-md flex items-center justify-center bg-left  transition-all duration-300 hover:scale-105 hover:shadow-xl"
-          style={{
-            backgroundImage: "url('/multi-pads.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "top",
-            backgroundRepeat: "no-repeat",
-          }}
+          // style={{
+          //   backgroundImage: "url('/multi-pads.png')",
+          //   backgroundSize: "cover",
+          //   backgroundPosition: "top",
+          //   backgroundRepeat: "no-repeat",
+          // }}
         >
           {/* <p>Tomato</p> */}
           <WhatsAppInviteCard />

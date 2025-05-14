@@ -13,11 +13,11 @@ import { Input } from "@/components/ui/input"
 import { useCart } from "@/components/cart-provider"
 import { Badge } from "./ui/badge"
 
-const validCoupons = ["SAVE10", "DISCOUNT10", "HELLO10"]
+const validCoupons = ["SAVE10", "DISCOUNT10", "WELLCOME10"]
 
 export function Cart() {
   const { items, isOpen, setIsOpen, removeItem, updateQuantity, totalItems, subtotal, savings ,appliedCoupon,setAppliedCoupon } = useCart()
-   console.log("tt",items)
+  
   const [coupon, setCoupon] = useState("")
   // const [appliedCoupon, setAppliedCoupon] = useState("")
   const [discount, setDiscount] = useState(0)

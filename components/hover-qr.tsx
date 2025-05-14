@@ -21,7 +21,7 @@ export default function WhatsAppInviteCard() {
           asChild
         >
           <a
-            href="https://chat.whatsapp.com/91DegreesCommunity"
+            href="https://whatsapp.com/channel/0029VbAdwnS4CrfqXXg1uq1k"
             target="_blank"
             rel="noopener noreferrer"
           >

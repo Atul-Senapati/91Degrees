@@ -14,7 +14,7 @@ export const FOOTER_DATA = {
   contact: {
     email: "echrainnovationspvtltd@gmail.com",
     phone: "+91 8926361010",
-    whatsapp: "https://chat.whatsapp.com/91DegreesCommunity",
+    whatsapp: "https://whatsapp.com/channel/0029VbAdwnS4CrfqXXg1uq1k",
   },
   quickLinks: [
     { name: "Privacy Policy", href: "/privacy-policy"},
