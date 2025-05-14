@@ -240,7 +240,7 @@ ${discountNote}
 `;
 
     const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = "8926361010";
+    const phoneNumber = "918926361010";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
     window.open(whatsappUrl, "_blank");
