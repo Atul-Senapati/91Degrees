@@ -21,7 +21,7 @@ export default function ContactFab() {
     },
     {
       label: "Product Inquiries",
-      message: "📦 Hello! I'd love more info on your ultra-thin pads - what&apos;s the absorbency level and materials used?",
+      message: "📦 Hello! I'd love more info on your ultra-thin pads - what's the absorbency level and materials used?",
     },
     {
       label: "Order Issues & Tracking",
