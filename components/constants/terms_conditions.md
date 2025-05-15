@@ -113,7 +113,7 @@ You agree to defend, indemnify, and hold harmless 91 Degrees, its affiliates, an
 
 ## 10. GOVERNING LAW AND JURISDICTION
 
-These Terms shall be governed by and construed in accordance with the laws of India. Any dispute arising under these Terms shall be subject to the exclusive jurisdiction of the courts located in [Your City/Jurisdiction], India.
+These Terms shall be governed by and construed in accordance with the laws of India. Any dispute arising under these Terms shall be subject to the exclusive jurisdiction of the courts located in Narayanpatna, Koraput ,Odisha, India.
 
 ## 11. CHANGES TO THESE TERMS
 
@@ -132,6 +132,6 @@ These Terms, together with our Privacy Policy, constitute the entire agreement b
 If you have any questions about these Terms, please contact us at:
 
 **91 Degrees**  
-[Insert Physical Address]  
-Email: legal@91degrees.com  
-Phone: [Insert Phone Number]
+ECHRA INNOVATIONS PRIVATE LIMITED 
+Email: echrainnovationspvtltd@gmail.com
+Phone: +91 8926361010

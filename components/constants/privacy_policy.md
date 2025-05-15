@@ -111,6 +111,9 @@ Phone: [Insert Phone Number]
 
 In compliance with applicable Indian laws, we have appointed a Grievance Officer to address any concerns or complaints regarding our privacy practices:
 
-[Insert Name of Grievance Officer]  
-Email: grievance@91degrees.com  
-Phone: [Insert Phone Number]
+ECHRA INNOVATIONS PRIVATE LIMITED 
+Email: echrainnovationspvtltd@gmail.com
+Phone: +91 8926361010
+
+
+  
