@@ -132,10 +132,10 @@ export default function ProductSelector() {
       price: selectedProduct.price,
       originalPrice: selectedProduct.originalPrice,
       size: selectedSize,
-      quantity: quantity * 2, // Double quantity for BOGO offer
+      quantity: quantity , // Double quantity for BOGO offer
       image: selectedProduct.image,
       isCustom: false,
-      details: "20 pads (Buy 1 Get 1 Free) + 20 disposal bags",
+      details: "10 pads + 10 disposal bags",
     })
 
     toast({
@@ -227,7 +227,7 @@ export default function ProductSelector() {
         <Card className="transition-all duration-300 hover:shadow-lg">
           <CardHeader>
             <CardTitle>Standard Size Boxes</CardTitle>
-            <CardDescription>Each box contains 10 pads + 10 disposal bags (Buy 1 Get 1 Free)</CardDescription>
+            <CardDescription>Each box contains 10 pads + 10 disposal bags </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-6 lg:grid-cols-2">
@@ -308,10 +308,8 @@ export default function ProductSelector() {
 
                 <Alert className="bg-pink-50 dark:bg-pink-900/20 border-pink-200 dark:border-pink-800">
                   <Package className="h-4 w-4 text-pink-600 dark:text-pink-400" />
-                  <AlertTitle>Special Offer</AlertTitle>
-                  <AlertDescription>
-                    Buy 1 Get 1 Free! Each purchase includes 2 boxes (20 pads + 20 disposal bags) for the price of 1.
-                  </AlertDescription>
+                           <AlertTitle>Box Contents</AlertTitle>
+                  <AlertDescription>Each box contains 10 pads + 10 disposal bags</AlertDescription>
                 </Alert>
 
                 <ul className="space-y-2">
@@ -350,7 +348,7 @@ export default function ProductSelector() {
                       className="w-full sm:w-auto flex-1 transition-all duration-300 hover:bg-pink-600 dark:hover:bg-pink-700"
                     >
                       <ShoppingCart className="mr-2 h-4 w-4" />
-                      Add to Cart (Buy 1 Get 1 Free)
+                      Add to Cart 
                     </Button>
                   </div>
                 ) : (
@@ -364,7 +362,7 @@ export default function ProductSelector() {
           </CardContent>
           <CardFooter className="border-t pt-6">
             <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-              Free shipping on orders over ₹499.
+              Free shipping on all orders across India.
             </p>
           </CardFooter>
         </Card>
@@ -484,7 +482,7 @@ export default function ProductSelector() {
           </CardContent>
           <CardFooter className="border-t pt-6">
             <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-              Free shipping on orders over ₹499.
+              Free shipping on all orders across India.
             </p>
           </CardFooter>
         </Card>

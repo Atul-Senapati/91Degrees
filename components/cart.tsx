@@ -14,9 +14,10 @@ import { useCart } from "@/components/cart-provider"
 import { Badge } from "./ui/badge"
 
 const validCoupons = ["SAVE10", "DISCOUNT10", "WELLCOME10"]
+const bogoCouppons= ["91BOGO","91ROJO"]
 
 export function Cart() {
-  const { items, isOpen, setIsOpen, removeItem, updateQuantity, totalItems, subtotal, savings ,appliedCoupon,setAppliedCoupon } = useCart()
+  const { items, isOpen, setIsOpen, removeItem, updateQuantity, totalItems, subtotal, savings ,appliedCoupon,setAppliedCoupon, bogoCoupon, setbogoCoupon} = useCart()
 
   const [coupon, setCoupon] = useState("")
   // const [appliedCoupon, setAppliedCoupon] = useState("")
@@ -39,16 +40,34 @@ export function Cart() {
   }, [setIsOpen])
 
   const handleApplyCoupon = () => {
-    if (validCoupons.includes(coupon.toUpperCase())) {
-      setDiscount(subtotal * 0.1)
-      setAppliedCoupon(coupon.toUpperCase())
-      setError("")
-    } else {
-      setDiscount(0)
-      setAppliedCoupon("")
-      setError("Invalid coupon code")
-    }
+  const upperCoupon = coupon.toUpperCase()
+
+  const isBogo = bogoCouppons.includes(upperCoupon)
+  const isValid = validCoupons.includes(upperCoupon)
+
+  if (isBogo) {
+    setbogoCoupon(upperCoupon)
+    setAppliedCoupon(upperCoupon)
+    setDiscount(0)
+    setError("")
+    return
   }
+
+  if (isValid) {
+    setDiscount(subtotal * 0.1)
+    setAppliedCoupon(upperCoupon)
+    setbogoCoupon("") // Clear BOGO if applying normal coupon
+    setError("")
+    return
+  }
+
+  // If neither valid
+  setDiscount(0)
+  setAppliedCoupon("")
+  setbogoCoupon("")
+  setError("Invalid coupon code")
+}
+
 
   const total = subtotal - discount
 
@@ -108,11 +127,12 @@ export function Cart() {
                           </Badge>
                         ) : (
                           <span>Size: {item.size}</span>
-                        )}{item.price < item.originalPrice && item.quantity > 1 && (
+                        )}
+                        {/* {item.price < item.originalPrice && item.quantity > 1 && (
                           <Badge variant="outline" className="bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-xs">
                             BOGO Applied
                           </Badge>
-                        )}
+                        )} */}
                       </div>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -171,7 +191,7 @@ export function Cart() {
                 {error && <p className="text-sm text-red-500">{error}</p>}
                 {appliedCoupon && (
                   <p className="text-sm text-green-600 dark:text-green-400">
-                    Coupon "{appliedCoupon}" applied! You saved ₹{discount.toFixed(2)}
+                    Coupon "{appliedCoupon}" applied! 
                   </p>
                 )}
               </div>
@@ -196,7 +216,7 @@ export function Cart() {
                 )}
                 <div className="flex justify-between text-sm">
                   <span>Shipping</span>
-                  <span>Calculated at checkout</span>
+                  <span>Free</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between font-medium">

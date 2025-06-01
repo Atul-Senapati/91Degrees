@@ -34,12 +34,14 @@ import Headerhome from "@/components/header-home";
 import HeroSection from "@/components/hero-section";
 import FeatureSection from "@/components/mobile-feature";
 import ContactFab from "@/components/contact-fab";
+import BogoSaleBanner from "@/components/BogoSaleBanner";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen transition-colors duration-300">
  
 <Headerhome/>
+<BogoSaleBanner/>
       {/* <div
         className="min-h-screen  flex items-center justify-center bg-cover bg-center relative"
         style={{ backgroundImage: "url('/imagee.jpg')" }}

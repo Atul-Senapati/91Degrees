@@ -27,6 +27,8 @@ type CartContextType = {
   savings: number
   appliedCoupon: string
   setAppliedCoupon: (coupon: string) => void
+  bogoCoupon: string
+  setbogoCoupon: (coupon: string) => void
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
@@ -45,6 +47,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [subtotal, setSubtotal] = useState(0)
   const [savings, setSavings] = useState(0)
   const [appliedCoupon, setAppliedCoupon] = useState("")
+  const [bogoCoupon, setbogoCoupon] = useState("")
 
   // Load cart from localStorage on initial render
   useEffect(() => {
@@ -59,21 +62,30 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  // Function to calculate effective price based on quantity and size
+  // Recalculate prices when bogoCoupon changes
+  useEffect(() => {
+    setItems((prevItems) => prevItems.map(calculateEffectivePrice))
+  }, [bogoCoupon])
+
+  // Function to calculate effective price based on BOGO status
   const calculateEffectivePrice = (item: CartItem): CartItem => {
     const config = priceConfig[item.size as keyof typeof priceConfig]
-    if (!config) return { ...item, price: item.originalPrice } // Fallback if size is invalid
+    if (!config) return { ...item, price: item.originalPrice }
 
     const { mrp, singlePrice, bogoPrice } = config
-    const pairs = Math.floor(item.quantity / 2)
-    const singleItems = item.quantity % 2
-    const totalCost = pairs * bogoPrice + singleItems * singlePrice
-    const effectivePrice = totalCost / item.quantity // Price per unit
 
-    return { ...item, price: Number(effectivePrice.toFixed(2)), originalPrice: mrp }
+    if (bogoCoupon) {
+      const pairs = Math.floor(item.quantity / 2)
+      const singleItems = item.quantity % 2
+      const totalCost = pairs * bogoPrice + singleItems * singlePrice
+      const effectivePrice = totalCost / item.quantity
+      return { ...item, price: Number(effectivePrice.toFixed(2)), originalPrice: mrp }
+    } else {
+      return { ...item, price: singlePrice, originalPrice: mrp }
+    }
   }
 
-  // Save cart to localStorage and calculate totals
+  // Save cart and recalculate totals
   useEffect(() => {
     if (items.length > 0) {
       localStorage.setItem("cart", JSON.stringify(items))
@@ -81,7 +93,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
       localStorage.removeItem("cart")
     }
 
-    // Calculate totals
     const total = items.reduce((sum, item) => sum + item.quantity, 0)
     setTotalItems(total)
 
@@ -97,42 +108,33 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const addItem = (newItem: CartItem) => {
     setItems((prevItems) => {
-      // For custom boxes, we need to check both id and details
       if (newItem.isCustom) {
         const existingItemIndex = prevItems.findIndex(
           (item) => item.id === newItem.id && item.details === newItem.details,
         )
 
         if (existingItemIndex >= 0) {
-          // Update quantity of existing custom box
           const updatedItems = [...prevItems]
           updatedItems[existingItemIndex].quantity += newItem.quantity
-          // Recalculate price for BOGO
           return updatedItems.map(calculateEffectivePrice)
         } else {
-          // Add new custom box with calculated price
           return [...prevItems, calculateEffectivePrice(newItem)]
         }
       } else {
-        // Check if standard item with same id and size already exists
         const existingItemIndex = prevItems.findIndex(
           (item) => item.id === newItem.id && item.size === newItem.size,
         )
 
         if (existingItemIndex >= 0) {
-          // Update quantity of existing item
           const updatedItems = [...prevItems]
           updatedItems[existingItemIndex].quantity += newItem.quantity
-          // Recalculate price for BOGO
           return updatedItems.map(calculateEffectivePrice)
         } else {
-          // Add new item with calculated price
           return [...prevItems, calculateEffectivePrice(newItem)]
         }
       }
     })
 
-    // Open cart when adding items
     setIsOpen(true)
   }
 
@@ -177,6 +179,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         savings,
         appliedCoupon,
         setAppliedCoupon,
+        bogoCoupon,
+        setbogoCoupon,
       }}
     >
       {children}
