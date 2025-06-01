@@ -74,7 +74,7 @@ export default function BogoSaleBanner() {
         whileHover="hover"
         whileTap="tap"
       >
-        Use Code: <span className="font-bold text-violet-700 dark:text-violet-800">91BOGO</span>
+        Use Code: <span className="font-bold text-violet-700 dark:text-violet-800">BOGO91</span>
       </motion.div>
     </motion.div>
   );

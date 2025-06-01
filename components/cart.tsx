@@ -14,7 +14,7 @@ import { useCart } from "@/components/cart-provider"
 import { Badge } from "./ui/badge"
 
 const validCoupons = ["SAVE10", "DISCOUNT10", "WELLCOME10"]
-const bogoCouppons= ["91BOGO","91ROJO"]
+const bogoCouppons= ["BOGO91","ROJA91"]
 
 export function Cart() {
   const { items, isOpen, setIsOpen, removeItem, updateQuantity, totalItems, subtotal, savings ,appliedCoupon,setAppliedCoupon, bogoCoupon, setbogoCoupon} = useCart()
