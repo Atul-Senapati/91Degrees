@@ -36,7 +36,7 @@ const promoVariants = {
 export default function BogoSaleBanner() {
   return (
     <motion.div
-      className="bg-gradient-to-r from-pink-500 to-violet-600 dark:from-pink-700 dark:to-violet-900 text-white w-full py-3 px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-xs sm:text-sm md:text-base"
+      className="bg-gradient-to-t from-pink-500 to-violet-600 dark:from-pink-700 dark:to-violet-900 text-white w-full py-4 px-4 sm:px-6 flex-nowrap flex items-center justify-between gap-2 sm:gap-4 text-xs sm:text-sm md:text-base"
       variants={bannerVariants}
       initial="hidden"
       animate="visible"
@@ -45,7 +45,7 @@ export default function BogoSaleBanner() {
     >
       {/* Flash Sale Tag */}
       <motion.div 
-        className="hidden lg:block text-[10px] sm:text-xs font-bold bg-white text-violet-600 dark:bg-gray-100 dark:text-violet-700 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md shadow-sm uppercase tracking-wider"
+        className="hidden lg:block text-[10px] sm:text-xs font-bold bg-white text-violet-600 dark:bg-gray-100 dark:text-violet-700 px-2 sm:px-3 py-1 rounded-md shadow-sm uppercase tracking-wider whitespace-nowrap"
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0, transition: { delay: 0.4, duration: 0.3 } }}
       >
@@ -53,23 +53,23 @@ export default function BogoSaleBanner() {
       </motion.div>
 
       {/* Main Message */}
-      <div className="flex flex-wrap items-center justify-center text-center sm:text-left gap-1 sm:gap-2 md:gap-3">
-        <span className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold tracking-wide">
+      <div className="flex flex-nowrap items-center justify-center text-center gap-1 sm:gap-2 md:gap-3 min-w-0 ">
+        <span className="truncate text-sm sm:text-base md:text-lg lg:text-xl font-semibold tracking-wide whitespace-nowrap">
           Buy One,
         </span>
         <motion.span
-          className="bg-white text-violet-600 dark:bg-gray-100 dark:text-violet-700 px-2 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-sm md:text-base lg:text-lg font-bold rounded-md shadow-sm"
+          className="truncate bg-white text-violet-600 dark:bg-gray-100 dark:text-violet-700 px-2 sm:px-3 py-1 text-[10px] sm:text-sm md:text-base font-bold rounded-md shadow-sm whitespace-nowrap"
           variants={tagVariants}
           style={{ transformOrigin: 'center' }}
           aria-label="Get One Half Price"
         >
-          Get One 50% Off
+          Get One Free
         </motion.span>
       </div>
 
       {/* Promo Code Box */}
       <motion.div
-        className="bg-white dark:bg-gray-100 text-violet-600 dark:text-violet-700 px-2 sm:px-3 py-1 sm:py-1.5 font-semibold rounded-md text-[10px] sm:text-xs md:text-sm shadow hover:bg-violet-50 dark:hover:bg-gray-200 cursor-pointer transition-colors"
+        className="truncate bg-white dark:bg-gray-100 text-violet-600 dark:text-violet-700 px-2 sm:px-3 py-1 font-semibold rounded-md text-[10px] sm:text-xs md:text-sm shadow hover:bg-violet-50 dark:hover:bg-gray-200 cursor-pointer transition-colors whitespace-nowrap"
         variants={promoVariants}
         whileHover="hover"
         whileTap="tap"
