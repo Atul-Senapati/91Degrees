@@ -108,7 +108,7 @@ export function Cart() {
                           </Badge>
                         ) : (
                           <span>Size: {item.size}</span>
-                        )}{item.price < item.originalPrice && (
+                        )}{item.price < item.originalPrice && item.quantity > 1 && (
                           <Badge variant="outline" className="bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-xs">
                             BOGO Applied
                           </Badge>
