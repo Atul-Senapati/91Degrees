@@ -25,11 +25,18 @@ type CartContextType = {
   totalItems: number
   subtotal: number
   savings: number
-  appliedCoupon:string,
-  setAppliedCoupon:(coupon: string) => void
+  appliedCoupon: string
+  setAppliedCoupon: (coupon: string) => void
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
+
+// Price configuration for sizes
+const priceConfig = {
+  L: { mrp: 219, singlePrice: 130, bogoPrice: 219 },
+  XL: { mrp: 269, singlePrice: 161, bogoPrice: 269 },
+  XXL: { mrp: 299, singlePrice: 179, bogoPrice: 299 },
+}
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
@@ -52,7 +59,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  // Save cart to localStorage whenever it changes
+  // Function to calculate effective price based on quantity and size
+  const calculateEffectivePrice = (item: CartItem): CartItem => {
+    const config = priceConfig[item.size as keyof typeof priceConfig]
+    if (!config) return { ...item, price: item.originalPrice } // Fallback if size is invalid
+
+    const { mrp, singlePrice, bogoPrice } = config
+    const pairs = Math.floor(item.quantity / 2)
+    const singleItems = item.quantity % 2
+    const totalCost = pairs * bogoPrice + singleItems * singlePrice
+    const effectivePrice = totalCost / item.quantity // Price per unit
+
+    return { ...item, price: Number(effectivePrice.toFixed(2)), originalPrice: mrp }
+  }
+
+  // Save cart to localStorage and calculate totals
   useEffect(() => {
     if (items.length > 0) {
       localStorage.setItem("cart", JSON.stringify(items))
@@ -65,10 +86,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setTotalItems(total)
 
     const cartSubtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-    setSubtotal(cartSubtotal)
+    setSubtotal(Number(cartSubtotal.toFixed(2)))
 
-    const cartSavings = items.reduce((sum, item) => sum + (item.originalPrice - item.price) * item.quantity, 0)
-    setSavings(cartSavings)
+    const cartSavings = items.reduce(
+      (sum, item) => sum + (item.originalPrice - item.price) * item.quantity,
+      0,
+    )
+    setSavings(Number(cartSavings.toFixed(2)))
   }, [items])
 
   const addItem = (newItem: CartItem) => {
@@ -83,23 +107,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
           // Update quantity of existing custom box
           const updatedItems = [...prevItems]
           updatedItems[existingItemIndex].quantity += newItem.quantity
-          return updatedItems
+          // Recalculate price for BOGO
+          return updatedItems.map(calculateEffectivePrice)
         } else {
-          // Add new custom box
-          return [...prevItems, newItem]
+          // Add new custom box with calculated price
+          return [...prevItems, calculateEffectivePrice(newItem)]
         }
       } else {
         // Check if standard item with same id and size already exists
-        const existingItemIndex = prevItems.findIndex((item) => item.id === newItem.id && item.size === newItem.size)
+        const existingItemIndex = prevItems.findIndex(
+          (item) => item.id === newItem.id && item.size === newItem.size,
+        )
 
         if (existingItemIndex >= 0) {
           // Update quantity of existing item
           const updatedItems = [...prevItems]
           updatedItems[existingItemIndex].quantity += newItem.quantity
-          return updatedItems
+          // Recalculate price for BOGO
+          return updatedItems.map(calculateEffectivePrice)
         } else {
-          // Add new item
-          return [...prevItems, newItem]
+          // Add new item with calculated price
+          return [...prevItems, calculateEffectivePrice(newItem)]
         }
       }
     })
@@ -121,7 +149,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((prevItems) =>
       prevItems.map((item) => {
         if (item.id === id && item.size === size) {
-          return { ...item, quantity }
+          const updatedItem = { ...item, quantity }
+          return calculateEffectivePrice(updatedItem)
         }
         return item
       }),
@@ -147,7 +176,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         subtotal,
         savings,
         appliedCoupon,
-        setAppliedCoupon
+        setAppliedCoupon,
       }}
     >
       {children}

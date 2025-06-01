@@ -16,12 +16,12 @@ import { Progress } from "@/components/ui/progress"
 import CarouselPlugin from "./product-carosuel"
 
 const standardProducts = [
-   {
+  {
     id: "regular",
     name: "Light Flow (Regular)",
     description: "Perfect for light flow days",
-    originalPrice: 139,
-    price: 109,
+    originalPrice: 219,
+    price: 130,
     image: "/slide5.png?height=200&width=200",
     features: ["6 hours protection", "Ultra-thin design", "Soft cotton cover"],
     inStock: false,
@@ -30,44 +30,42 @@ const standardProducts = [
     id: "xl",
     name: "Medium Flow (XL)",
     description: "Ideal for medium flow days with extra coverage",
-    originalPrice: 149,
-    price: 119,
+    originalPrice: 269,
+    price: 161,
     image: "/slide5.png?height=200&width=200",
-    features: ["Length : 280 mm", "Regular to heavy flow  ", "Side guards with wider wings"],
+    features: ["Length: 280 mm", "Regular to heavy flow", "Side guards with wider wings"],
     inStock: true,
   },
- 
   {
     id: "xxl",
     name: "Heavy Flow (XXL)",
     description: "Maximum protection for heavy flow days",
-    originalPrice: 179,
-    price: 149,
+    originalPrice: 299,
+    price: 179,
     image: "/slide5.png?height=200&width=200",
-    features: ["Length : 320 mm", "Heavy to extra-heavy flow, overnight use", " Extended back with ultra-wide wings "],
+    features: ["Length: 320 mm", "Heavy to extra-heavy flow, overnight use", "Extended back with ultra-wide wings"],
     inStock: true,
   },
 ]
 
 const customBoxOptions = [
-   {
+  {
     id: "regular",
     name: "Light Flow (Regular)",
-    price: 11,
+    price: 14,
     image: "/satche.png?height=100&width=100",
     inStock: false,
   },
   {
     id: "xl",
     name: "Medium Flow (XL)",
-    price: 12,
+    price: 16,
     image: "/satche.png?height=100&width=100",
   },
- 
   {
     id: "xxl",
     name: "Heavy Flow (XXL)",
-    price: 15,
+    price: 18,
     image: "/satche.png?height=100&width=100",
   },
 ]
@@ -134,15 +132,15 @@ export default function ProductSelector() {
       price: selectedProduct.price,
       originalPrice: selectedProduct.originalPrice,
       size: selectedSize,
-      quantity: quantity,
+      quantity: quantity * 2, // Double quantity for BOGO offer
       image: selectedProduct.image,
       isCustom: false,
-      details: "10 pads + 10 disposal bags",
+      details: "20 pads (Buy 1 Get 1 Free) + 20 disposal bags",
     })
 
     toast({
       title: "Added to cart",
-      description: `${quantity} box(es) of ${selectedProduct.name} added to your cart.`,
+      description: `${quantity} box(es) of ${selectedProduct.name} (Buy 1 Get 1 Free) added to your cart.`,
     })
   }
 
@@ -193,9 +191,9 @@ export default function ProductSelector() {
       id: "custom-box",
       name: "Custom Pad Box",
       price: customBoxPrice,
-      originalPrice: customBoxPrice * 1.25, // 25% markup for original price
+      originalPrice: customBoxPrice , // 25% markup for original price
       size: "Custom",
-      quantity: quantity,
+      quantity: quantity , // Double quantity for BOGO offer
       image: "/satche.png?height=200&width=200",
       isCustom: true,
       details: details,
@@ -203,7 +201,7 @@ export default function ProductSelector() {
 
     toast({
       title: "Custom box added to cart",
-      description: `${quantity} custom box(es) with ${customBoxTotal} pads added to your cart.`,
+      description: `${quantity} custom box(es) with ${customBoxTotal} pads (Buy 1 Get 1 Free) added to your cart.`,
     })
   }
 
@@ -229,21 +227,12 @@ export default function ProductSelector() {
         <Card className="transition-all duration-300 hover:shadow-lg">
           <CardHeader>
             <CardTitle>Standard Size Boxes</CardTitle>
-            <CardDescription>Each box contains 10 pads + 10 disposal bags</CardDescription>
+            <CardDescription>Each box contains 10 pads + 10 disposal bags (Buy 1 Get 1 Free)</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-6 lg:grid-cols-2">
               <div className="flex justify-center">
-                {/* <div className="transition-transform duration-500 hover:scale-105">
-                  <Image
-                    src={selectedProduct.image || "/placeholder.svg"}
-                    alt={selectedProduct.name}
-                    width={200}
-                    height={200}
-                    className="rounded-lg object-cover shadow-md"
-                  />
-                </div> */}
-              <CarouselPlugin/>
+                <CarouselPlugin />
               </div>
               <div className="space-y-4">
                 <div className="font-bold text-pink-900 dark:text-pink-100 text-3xl tracking-wider">91 Degrees FLEXIFLOW</div>
@@ -260,14 +249,13 @@ export default function ProductSelector() {
                         (p) =>
                           (value === "Regular" && p.id === "regular") ||
                           (value === "XL" && p.id === "xl") ||
-                          
                           (value === "XXL" && p.id === "xxl"),
                       )
                       if (product) setSelectedProduct(product)
                     }}
                     className="grid grid-cols-3 gap-2"
                   >
-                     <div className="relative">
+                    <div className="relative">
                       <div
                         className={`flex flex-col items-center border rounded-md p-3 ${selectedSize === "Regular" ? "border-pink-500 bg-pink-50 dark:bg-pink-900/20" : "border-gray-200"} opacity-60`}
                       >
@@ -283,7 +271,7 @@ export default function ProductSelector() {
                     </div>
                     <div className="relative">
                       <Label
-                       htmlFor="size-xl"
+                        htmlFor="size-xl"
                         className={`flex flex-col items-center border rounded-md p-3 cursor-pointer ${selectedSize === "XL" ? "border-pink-500 bg-pink-50 dark:bg-pink-900/20" : "border-gray-200"}`}
                       >
                         <RadioGroupItem value="XL" id="size-xl" className="sr-only" />
@@ -293,9 +281,6 @@ export default function ProductSelector() {
                         </Label>
                       </Label>
                     </div>
-
-                   
-
                     <div className="relative">
                       <Label
                         htmlFor="size-xxl"
@@ -317,14 +302,16 @@ export default function ProductSelector() {
                     ₹{selectedProduct.originalPrice.toFixed(2)}
                   </div>
                   <div className="text-sm text-green-600 dark:text-green-400">
-                    Save ₹{(selectedProduct.originalPrice - selectedProduct.price).toFixed(2)}
+                    Save { ((selectedProduct.originalPrice - selectedProduct.price) / selectedProduct.originalPrice * 100).toFixed(0)}%
                   </div>
                 </div>
 
                 <Alert className="bg-pink-50 dark:bg-pink-900/20 border-pink-200 dark:border-pink-800">
                   <Package className="h-4 w-4 text-pink-600 dark:text-pink-400" />
-                  <AlertTitle>Box Contents</AlertTitle>
-                  <AlertDescription>Each box contains 10 pads + 10 disposal bags</AlertDescription>
+                  <AlertTitle>Special Offer</AlertTitle>
+                  <AlertDescription>
+                    Buy 1 Get 1 Free! Each purchase includes 2 boxes (20 pads + 20 disposal bags) for the price of 1.
+                  </AlertDescription>
                 </Alert>
 
                 <ul className="space-y-2">
@@ -363,7 +350,7 @@ export default function ProductSelector() {
                       className="w-full sm:w-auto flex-1 transition-all duration-300 hover:bg-pink-600 dark:hover:bg-pink-700"
                     >
                       <ShoppingCart className="mr-2 h-4 w-4" />
-                      Add to Cart
+                      Add to Cart (Buy 1 Get 1 Free)
                     </Button>
                   </div>
                 ) : (
@@ -388,7 +375,7 @@ export default function ProductSelector() {
         <Card className="transition-all duration-300 hover:shadow-lg">
           <CardHeader>
             <CardTitle>Create Your Own Box</CardTitle>
-            <CardDescription>Mix and match up to 10 pads + get 10 disposal bags</CardDescription>
+            <CardDescription>Mix and match up to 10 pads + get 10 disposal bags </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
@@ -455,13 +442,13 @@ export default function ProductSelector() {
                 ))}
               </div>
 
-              <Alert className="bg-pink-50 dark:bg-pink-900/20 border-pink-200 dark:border-pink-800">
+              {/* <Alert className="bg-pink-50 dark:bg-pink-900/20 border-pink-200 dark:border-pink-800">
                 <Package className="h-4 w-4 text-pink-600 dark:text-pink-400" />
-                <AlertTitle>Box Contents</AlertTitle>
+                <AlertTitle>Special Offer</AlertTitle>
                 <AlertDescription>
-                  Your custom box includes your selected pads (up to 10) + 10 disposal bags
+                  Buy 1 Get 1 Free! Each purchase includes 2 custom boxes (up to 20 pads + 20 disposal bags) for the price of 1.
                 </AlertDescription>
-              </Alert>
+              </Alert> */}
 
               <div className="flex flex-col sm:flex-row items-center gap-4">
                 <div className="flex items-center space-x-2">
@@ -490,7 +477,7 @@ export default function ProductSelector() {
                   className="w-full sm:w-auto flex-1 transition-all duration-300 hover:bg-pink-600 dark:hover:bg-pink-700"
                 >
                   <ShoppingCart className="mr-2 h-4 w-4" />
-                  Add Custom Box to Cart
+                  Add Custom Box to Cart 
                 </Button>
               </div>
             </div>
@@ -523,7 +510,9 @@ function Package(props) {
       <path d="m7.5 4.27 9 5.15" />
       <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
       <path d="m3.3 7 8.7 5 8.7-5" />
-      <path d="M12 22V12" />
+      <path d="M
+
+12 22V12" />
     </svg>
   )
 }

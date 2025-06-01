@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CartProvider } from "@/components/cart-provider";
 import { Cart } from "@/components/cart";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ export default function RootLayout({
         >
           <CartProvider>
             {children}
+            <SpeedInsights />
             <Cart />
           </CartProvider>
         </ThemeProvider>

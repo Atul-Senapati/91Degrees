@@ -17,7 +17,7 @@ const validCoupons = ["SAVE10", "DISCOUNT10", "WELLCOME10"]
 
 export function Cart() {
   const { items, isOpen, setIsOpen, removeItem, updateQuantity, totalItems, subtotal, savings ,appliedCoupon,setAppliedCoupon } = useCart()
-  
+
   const [coupon, setCoupon] = useState("")
   // const [appliedCoupon, setAppliedCoupon] = useState("")
   const [discount, setDiscount] = useState(0)
@@ -101,13 +101,17 @@ export function Cart() {
                           <span className="sr-only">Remove</span>
                         </Button>
                       </div>
-                      <div className="flex items-center text-sm text-muted-foreground">
+                      <div className="flex gap-2  items-center text-sm text-muted-foreground">
                         {item.isCustom ? (
                           <Badge variant="outline" className="bg-pink-50 dark:bg-pink-900/20 text-xs">
                             Custom Box
                           </Badge>
                         ) : (
                           <span>Size: {item.size}</span>
+                        )}{item.price < item.originalPrice && (
+                          <Badge variant="outline" className="bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-xs">
+                            BOGO Applied
+                          </Badge>
                         )}
                       </div>
                       <div className="flex items-center justify-between">
