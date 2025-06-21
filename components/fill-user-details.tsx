@@ -213,11 +213,16 @@ export default function CheckoutForm() {
       .join("\n\n");
 
     const hasCoupon = appliedCoupon?.trim() !== "";
-    const finalSubtotal = hasCoupon
+    const bogoCouppons = ["BOGO91", "ROJA91"];
+    const isBogoCoupon = bogoCouppons.includes(appliedCoupon?.trim().toUpperCase());
+    const finalSubtotal = hasCoupon && !isBogoCoupon
       ? (subtotal * 0.9).toFixed(2)
       : subtotal.toFixed(2);
-    const discountNote = hasCoupon
-      ? `🎟️ *Coupon Applied:* ${appliedCoupon}\n🔖 *Discounted Subtotal:* ₹${finalSubtotal}`
+
+      const discountNote = hasCoupon
+      ? isBogoCoupon
+        ? `🎟️ *BOGO Coupon Applied:* ${appliedCoupon}`
+        : `🎟️ *Coupon Applied:* ${appliedCoupon}\n🔖 *Discounted Subtotal:* ₹${finalSubtotal}`
       : `💰 *Subtotal:* ₹${finalSubtotal}`;
 
     const message = `

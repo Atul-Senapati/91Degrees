@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { Minus, Plus, ShoppingCart, AlertCircle, Check } from "lucide-react"
+import { Minus, Plus, ShoppingCart, AlertCircle, Check, Truck } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -360,11 +360,16 @@ export default function ProductSelector() {
               </div>
             </div>
           </CardContent>
-          <CardFooter className="border-t pt-6">
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-              Free shipping on all orders across India.
-            </p>
-          </CardFooter>
+          <CardFooter className="border-t pt-6 flex flex-col sm:flex-row sm:justify-between gap-2">
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 flex items-center">
+          <Package className="mr-2 h-4 w-4 text-gray-500 dark:text-gray-400 flex-shrink-0" />
+          Free shipping on all orders across India
+        </p>
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 flex items-center ">
+          <Truck className="mr-2 h-4 w-4 text-gray-500 dark:text-gray-400" />
+          Ships in 3-5 days
+        </p>
+      </CardFooter>
         </Card>
       </TabsContent>
 
@@ -480,11 +485,16 @@ export default function ProductSelector() {
               </div>
             </div>
           </CardContent>
-          <CardFooter className="border-t pt-6">
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-              Free shipping on all orders across India.
-            </p>
-          </CardFooter>
+          <CardFooter className="border-t pt-6 flex flex-col sm:flex-row sm:justify-between gap-2">
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 flex items-center">
+          <Package className="mr-2 h-4 w-4 text-gray-500 dark:text-gray-400 flex-shrink-0" />
+          Free shipping on all orders across India
+        </p>
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 flex items-center ">
+          <Truck className="mr-2 h-4 w-4 text-gray-500 dark:text-gray-400" />
+          Ships in 3-5 days
+        </p>
+      </CardFooter>
         </Card>
       </TabsContent>
     </Tabs>

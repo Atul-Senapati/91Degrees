@@ -10,7 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { Input } from "@/components/ui/input"
-import { useCart } from "@/components/cart-provider"
+import { CartItem, useCart } from "@/components/cart-provider"
 import { Badge } from "./ui/badge"
 
 const validCoupons = ["SAVE10", "DISCOUNT10", "WELLCOME10"]
@@ -45,12 +45,29 @@ export function Cart() {
   const isBogo = bogoCouppons.includes(upperCoupon)
   const isValid = validCoupons.includes(upperCoupon)
 
+  // if (isBogo) {
+  //   setbogoCoupon(upperCoupon)
+  //   setAppliedCoupon(upperCoupon)
+  //   setDiscount(0)
+  //   setError("")
+  //   return
+  // }
   if (isBogo) {
-    setbogoCoupon(upperCoupon)
-    setAppliedCoupon(upperCoupon)
-    setDiscount(0)
-    setError("")
-    return
+    // Ensure each item's quantity is a multiple of 2
+    const allItemsValidForBogo = items.every((item) => item.quantity % 2 === 0);
+
+    if (allItemsValidForBogo && items.length > 0 ) {
+      setbogoCoupon(upperCoupon);
+      setAppliedCoupon(upperCoupon);
+      setDiscount(0); // Adjust discount logic if needed
+      setError("");
+    } else {
+      setError("BOGO coupon requires each item quantity to be a multiple of 2.");
+      setbogoCoupon("");
+      setAppliedCoupon("");
+      setDiscount(0);
+    }
+    return;
   }
 
   if (isValid) {
@@ -70,6 +87,29 @@ export function Cart() {
 
 
   const total = subtotal - discount
+
+   
+  const handleUpdateQuantity = (id: string, size: string, quantity: number) => {
+    // 1. Update the quantity
+    updateQuantity(id, size, quantity);
+  
+    // 2. If BOGO is active, validate the cart after update
+    if (bogoCoupon) {
+      const updatedItems = items.map((item) =>
+        item.id === id && item.size === size ? { ...item, quantity } : item
+      );
+  
+      const isValid = updatedItems.length > 0 && updatedItems.every((item) => item.quantity % 2 === 0);
+      
+      if (!isValid) {
+        setbogoCoupon("");
+        setAppliedCoupon("");
+        setDiscount(0);
+        setError("BOGO coupon removed: Item quantity to be a multiple of 2.");
+      }
+    }
+  };
+  
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -140,7 +180,7 @@ export function Cart() {
                             variant="outline"
                             size="icon"
                             className="h-7 w-7"
-                            onClick={() => updateQuantity(item.id, item.size, item.quantity - 1)}
+                            onClick={() => handleUpdateQuantity(item.id, item.size, item.quantity - 1)}
                           >
                             <Minus className="h-3 w-3" />
                             <span className="sr-only">Decrease quantity</span>
@@ -150,7 +190,7 @@ export function Cart() {
                             variant="outline"
                             size="icon"
                             className="h-7 w-7"
-                            onClick={() => updateQuantity(item.id, item.size, item.quantity + 1)}
+                            onClick={() => handleUpdateQuantity(item.id, item.size, item.quantity + 1)}
                           >
                             <Plus className="h-3 w-3" />
                             <span className="sr-only">Increase quantity</span>

@@ -63,7 +63,7 @@ export default function BogoSaleBanner() {
           style={{ transformOrigin: 'center' }}
           aria-label="Get One Half Price"
         >
-          Get One Free
+          Get One 50% Off
         </motion.span>
       </div>
 
